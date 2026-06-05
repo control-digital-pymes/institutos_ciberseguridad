@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Ciberseguridad en las aulas — Control Digital Pymes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600;700&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --graphite:#15171a;
+  --graphite-2:#1b1e22;
+  --card:#22262b;
+  --card-2:#262b31;
+  --border:#2e343b;
+  --ivory:#e9e7df;
+  --ivory-dim:#b9b7ae;
+  --muted:#888b86;
+  --olive:#a9b37d;
+  --olive-deep:#7e8857;
+  --serif:"Spectral",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;color:var(--ivory);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+@page { size: 1440px 810px; margin: 0 }
+
+.slide{
+  width:1440px;height:810px;
+  background:var(--graphite);
+  position:relative;
+  padding:58px 90px;
+  page-break-after:always;
+  overflow:hidden;
+}
+.slide.alt{background:var(--graphite-2)}
+.slide:last-child{page-break-after:auto}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.30em;
+  text-transform:uppercase;
+  color:var(--olive);
+  display:block;
+  margin-bottom:18px;
+}
+h1{font-family:var(--serif);font-weight:600;font-size:78px;line-height:1.04;letter-spacing:-.02em;max-width:18ch;color:var(--ivory)}
+h1 em{font-style:italic;font-weight:400;color:var(--olive)}
+h2{font-family:var(--serif);font-weight:600;font-size:46px;line-height:1.08;letter-spacing:-.01em;color:var(--ivory);max-width:24ch}
+h3{font-family:var(--sans);font-weight:600;font-size:20px;line-height:1.32;color:var(--ivory);margin-bottom:8px}
+h4{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);font-weight:500;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+p, li{color:var(--ivory-dim);font-size:16px;line-height:1.55}
+.lead{font-size:20px;color:var(--ivory-dim);max-width:62ch;line-height:1.5;font-weight:400}
+
+.page-num{
+  position:absolute;bottom:38px;right:54px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  color:var(--muted);
+}
+.page-foot{
+  position:absolute;bottom:38px;left:96px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* COVER */
+.cover{
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:0;
+  position:relative;
+}
+.cover::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(800px 540px at 82% 15%,rgba(169,179,125,.10),transparent 70%),
+    radial-gradient(640px 420px at 5% 92%,rgba(95,130,168,.05),transparent 70%);
+  pointer-events:none;
+}
+.cover .dotgrid{
+  position:absolute;top:70px;right:60px;width:340px;height:240px;opacity:.45;
+  background-image:radial-gradient(var(--border) 1.3px,transparent 1.3px);
+  background-size:24px 24px;
+  -webkit-mask-image:linear-gradient(135deg,#000,transparent 75%);
+  mask-image:linear-gradient(135deg,#000,transparent 75%);
+}
+.cover-brand{
+  display:flex;align-items:center;gap:14px;position:relative;z-index:2;
+}
+.cover-brand svg{width:38px;height:44px;flex:none}
+.cover-brand .name{font-family:var(--sans);font-weight:600;font-size:17px;letter-spacing:.02em}
+.cover-brand .name small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;font-weight:400;margin-top:2px}
+
+.cover-center{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:30px 0}
+.cover-center h1{margin-bottom:0}
+.cover-sub{font-family:var(--serif);font-style:italic;font-weight:400;font-size:26px;color:var(--ivory-dim);margin-top:26px;max-width:42ch;line-height:1.4}
+.cover-meta{display:flex;gap:10px;margin-top:38px;flex-wrap:wrap}
+.cover-tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;border:1px solid var(--border);padding:8px 16px;border-radius:2px;color:var(--ivory-dim)}
+.cover-tag b{color:var(--olive);font-weight:500;margin-right:6px}
+
+.cover-author{position:relative;z-index:2;padding-top:20px;border-top:1px solid var(--border)}
+.cover-author .signed{font-family:var(--sans);font-weight:600;font-size:17px;color:var(--ivory)}
+.cover-author .role{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+
+/* Quién soy */
+.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;margin-top:34px}
+.about-body p{margin-bottom:14px;max-width:50ch;color:var(--ivory-dim);font-size:17px;line-height:1.55}
+.about-body strong{color:var(--ivory);font-weight:600}
+.credentials{border-left:2px solid var(--olive-deep);padding-left:24px}
+.credentials .item{margin-bottom:18px}
+.credentials .item:last-child{margin-bottom:0}
+.credentials .item h5{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--ivory);margin-bottom:3px;line-height:1.3}
+.credentials .item .meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted)}
+.credentials .item .grade{color:var(--olive)}
+
+/* Por qué importa - figures */
+.fig-row{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:46px}
+.fig{border-top:2px solid var(--olive-deep);padding-top:18px}
+.fig .v{font-family:var(--serif);font-weight:600;font-size:62px;line-height:1;color:var(--ivory)}
+.fig .l{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px;margin-bottom:12px}
+.fig p{font-size:15px;color:var(--ivory-dim);line-height:1.5}
+
+/* Experiencia / Cibervoluntarios */
+.cibervol-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;margin-top:36px}
+.cibervol-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:28px 26px}
+.cibervol-card h3{margin-bottom:10px;font-size:19px}
+.cibervol-card p{font-size:15.5px;line-height:1.5}
+.cibervol-card .list{margin-top:14px;list-style:none}
+.cibervol-card .list li{padding:7px 0;border-top:1px solid var(--border);font-size:14.5px;color:var(--ivory-dim);line-height:1.45}
+.cibervol-card .list li:first-child{border-top:none}
+
+/* Ejes overview */
+.ejes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:42px}
+.eje{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:26px 22px;position:relative;min-height:180px}
+.eje .num{font-family:var(--mono);font-size:11px;color:var(--olive);letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px}
+.eje h3{font-size:19px;line-height:1.25;margin-bottom:8px}
+.eje p{font-size:14px;line-height:1.5;color:var(--ivory-dim)}
+.eje .lvl{position:absolute;top:16px;right:18px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+
+/* Eje detail */
+.eje-detail{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;margin-top:36px}
+.eje-detail .what ul{list-style:none}
+.eje-detail .what li{padding:10px 0;border-bottom:1px solid var(--border);font-size:15px;color:var(--ivory-dim)}
+.eje-detail .what li:last-child{border-bottom:none}
+.eje-detail .what li b{font-weight:600;color:var(--ivory);display:block;margin-bottom:2px;font-size:16px;line-height:1.3}
+.eje-detail .what li span{font-size:14px;color:var(--muted);line-height:1.45}
+.eje-detail .meta-box{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:24px 24px;align-self:start}
+.eje-detail .meta-box h4{margin-bottom:14px;padding-bottom:10px}
+.eje-detail .meta-box .row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:14px;color:var(--ivory-dim)}
+.eje-detail .meta-box .row b{color:var(--ivory);font-weight:500;font-family:var(--mono);font-size:13px}
+
+/* Cómo se imparte */
+.format-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.fmt{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:22px 22px}
+.fmt .ico{width:32px;height:32px;color:var(--olive);margin-bottom:14px}
+.fmt .ico svg{width:100%;height:100%}
+.fmt h3{font-size:16px;margin-bottom:6px}
+.fmt p{font-size:13.5px;line-height:1.5}
+
+.audiences{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.aud{border:1px solid var(--border);border-radius:2px;padding:12px 14px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ivory-dim);line-height:1.4}
+.aud b{color:var(--olive);font-weight:500;display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px}
+
+/* Formación */
+.form-list{display:grid;grid-template-columns:1fr 1fr;gap:28px 50px;margin-top:36px}
+.form-block h4{margin-bottom:12px}
+.form-block .row{padding:8px 0;border-bottom:1px solid var(--border)}
+.form-block .row:last-child{border-bottom:none}
+.form-block .row b{font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--ivory);display:block;line-height:1.32;margin-bottom:2px}
+.form-block .row span{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em;line-height:1.4}
+
+/* Contacto */
+.contact{display:flex;flex-direction:column;justify-content:center;padding:120px 96px;position:relative;overflow:hidden}
+.contact::after{
+  content:"";position:absolute;right:-120px;bottom:-120px;width:440px;height:440px;border-radius:50%;
+  border:1px solid var(--border);opacity:.5;
+}
+.contact h2{font-style:italic;font-weight:400;max-width:18ch;font-size:64px}
+.contact-rule{height:1px;background:var(--border);margin:50px 0 36px;max-width:600px}
+.sign{font-family:var(--sans);font-weight:600;font-size:20px}
+.sign small{display:block;font-size:15px;color:var(--muted);font-weight:400;margin-top:4px}
+.contact-links{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.contact-links a{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:2px;padding:13px 20px;font-size:14px;color:var(--ivory-dim);font-family:var(--mono);letter-spacing:.02em;text-decoration:none}
+.contact-links a svg{width:16px;height:16px;flex:none}
+</style>
+</head>
+<body>
+
+<!-- ============= 1 · COVER ============= -->
+<section class="slide cover">
+  <div class="dotgrid"></div>
+
+  <div class="cover-brand">
+    <svg viewBox="0 0 42 48" fill="none">
+      <path d="M21 3 L38 9 V25 C38 35 32 42 21 46 C10 42 4 35 4 25 V9 Z" fill="#22262b" stroke="#a9b37d" stroke-width="1.6"/>
+      <path d="M21 3 L38 9 V25 C38 35 32 42 21 46 Z" fill="#a9b37d" fill-opacity="0.9"/>
+    </svg>
+    <span class="name">Control Digital Pymes<small>Tu tranquilidad · Nuestra evidencia</small></span>
+  </div>
+
+  <div class="cover-center">
+    <span class="eyebrow">Propuesta para centros educativos · Curso 2025–2026</span>
+    <h1>Ciberseguridad <em>en las aulas</em>.</h1>
+    <p class="cover-sub">Talleres de concienciación, prácticas digitales seguras, introducción al hacking ético y orientación profesional.</p>
+
+    <div class="cover-meta">
+      <span class="cover-tag"><b>ESO</b> de 1.º a 4.º</span>
+      <span class="cover-tag"><b>Bachillerato</b> y FP</span>
+      <span class="cover-tag"><b>Docentes</b> y AMPA</span>
+    </div>
+  </div>
+
+  <div class="cover-author">
+    <div class="signed">Dragos C. I. Andrei</div>
+    <div class="role">Técnico en ciberseguridad y análisis forense digital · Voluntario de Fundación Cibervoluntarios</div>
+  </div>
+</section>
+
+<!-- ============= 2 · QUIÉN SOY ============= -->
+<section class="slide alt">
+  <span class="eyebrow">Quién soy</span>
+  <h2>Un técnico que también enseña — y que ya ha estado en aulas como las suyas.</h2>
+
+  <div class="two-col">
+    <div class="about-body">
+      <p>Soy <strong>Iván Andrei</strong> (Dragos C. I. Andrei), técnico independiente en ciberseguridad y análisis forense digital, residente en Málaga.</p>
+      <p>Combino el trabajo técnico —auditoría, hacking ético, peritaje informático, análisis forense— con una <strong>actividad continuada de divulgación</strong> en centros educativos como colaborador de la <strong>Fundación Cibervoluntarios</strong>.</p>
+      <p>Mi formación arranca en la Filosofía (UMA), lo que me ha enseñado a explicar lo complejo en términos sencillos. Esa exigencia pedagógica es la que llevo a las aulas: <strong>no se trata de asustar al alumnado, se trata de que entienda</strong>.</p>
+    </div>
+
+    <div class="credentials">
+      <div class="item">
+        <h5>Programa Avanzado en Peritaje Informático e Informática Forense</h5>
+        <div class="meta">UNIR · 450 h · 2025 · <span class="grade">Sobresaliente 9,20</span></div>
+      </div>
+      <div class="item">
+        <h5>Curso en Director de Seguridad</h5>
+        <div class="meta">UNIR · 450 h · 2024–2025 · <span class="grade">Sobresaliente 9,50</span></div>
+      </div>
+      <div class="item">
+        <h5>Máster en Detective Privado, Ciberdelitos y Análisis Forense</h5>
+        <div class="meta">UNIR · primer año cursado · 2025</div>
+      </div>
+      <div class="item">
+        <h5>Técnico Superior en Mantenimiento Electrónico</h5>
+        <div class="meta">IES Politécnico Jesús Marín, Málaga · 2021–2023</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">02</div>
+</section>
+
+<!-- ============= 3 · POR QUÉ IMPORTA ============= -->
+<section class="slide">
+  <span class="eyebrow">Por qué importa ahora</span>
+  <h2>El móvil del alumnado entra al aula antes que el profesor.</h2>
+  <p class="lead" style="margin-top:30px">Los menores son hoy uno de los colectivos más expuestos a fraudes digitales, suplantación de identidad y manipulación informativa — y, al mismo tiempo, uno de los menos formados para reconocerlos.</p>
+
+  <div class="fig-row">
+    <div class="fig">
+      <div class="v">7 h</div>
+      <div class="l">de pantalla / día</div>
+      <p>Tiempo medio de uso de dispositivos en adolescentes españoles. La mayoría sin filtros ni configuración de privacidad real.</p>
+    </div>
+    <div class="fig">
+      <div class="v">1 de 3</div>
+      <div class="l">recibe intentos de fraude</div>
+      <p>Phishing por SMS, suplantación en redes, sextorsión y estafas en marketplaces. La cifra crece curso tras curso.</p>
+    </div>
+    <div class="fig">
+      <div class="v">+38%</div>
+      <div class="l">demanda laboral</div>
+      <p>Crecimiento anual de ofertas en ciberseguridad en España. Es uno de los sectores con menor desempleo y mayor proyección.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:46px;font-size:15px;color:var(--muted);max-width:75ch">Datos orientativos elaborados a partir de informes públicos de INCIBE, ENISA y el Observatorio Nacional de Tecnología y Sociedad. Disponibles bajo petición.</p>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">03</div>
+</section>
+
+<!-- ============= 4 · EXPERIENCIA CIBERVOLUNTARIOS ============= -->
+<section class="slide alt">
+  <span class="eyebrow">Experiencia previa con centros educativos</span>
+  <h2>Ya he estado en el aula. Sé cómo se gana la atención de un grupo a las 8:30 — y la de un FP a última hora.</h2>
+
+  <div class="cibervol-grid">
+    <div class="cibervol-card">
+      <h3>Colaborador de Fundación Cibervoluntarios</h3>
+      <p>He impartido talleres de concienciación digital y ciberseguridad en centros educativos de la provincia, dentro del programa de voluntariado de <strong style="color:var(--ivory)">Fundación Cibervoluntarios</strong>, entidad referente en alfabetización digital en España.</p>
+      <ul class="list">
+        <li>Sesiones adaptadas a 1.º–4.º de ESO, Bachillerato y FP</li>
+        <li>Material propio + recursos validados por la Fundación</li>
+        <li>Dinámicas grupales, demos en vivo y casos reales anonimizados</li>
+      </ul>
+    </div>
+
+    <div class="cibervol-card">
+      <h3>Lo que aprendí en esas sesiones</h3>
+      <p>Lo que funciona en un aula no es lo que funciona en una sala de juntas. El alumnado conecta cuando ve <strong style="color:var(--ivory)">casos reales que reconocen</strong> y herramientas que pueden usar esa misma tarde.</p>
+      <ul class="list">
+        <li>El miedo no educa: cierra al alumnado y dura una semana</li>
+        <li>El reto sí: un CTF supervisado engancha cinco cursos enteros</li>
+        <li>La orientación profesional cambia decisiones de matriculación</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">04</div>
+</section>
+
+<!-- ============= 5 · QUÉ OFREZCO ============= -->
+<section class="slide">
+  <span class="eyebrow">Qué ofrezco</span>
+  <h2>Cuatro ejes que se pueden contratar sueltos o como itinerario completo.</h2>
+
+  <div class="ejes-grid">
+    <div class="eje">
+      <div class="lvl">ESO–FP</div>
+      <div class="num">Eje 01</div>
+      <h3>Concienciación en ciberseguridad</h3>
+      <p>Phishing, sextorsión, huella digital, bulos. Reconocer lo que ya están viviendo.</p>
+    </div>
+    <div class="eje">
+      <div class="lvl">ESO–FP</div>
+      <div class="num">Eje 02</div>
+      <h3>Prácticas digitales seguras</h3>
+      <p>Contraseñas, doble factor, privacidad en redes, wifis públicas. Hábitos que se llevan a casa.</p>
+    </div>
+    <div class="eje">
+      <div class="lvl">Bach.–FP</div>
+      <div class="num">Eje 03</div>
+      <h3>Introducción al hacking ético</h3>
+      <p>El pensamiento del atacante para entender la defensa. CTF, OSINT, ética y ley.</p>
+    </div>
+    <div class="eje">
+      <div class="lvl">Bach.–FP</div>
+      <div class="num">Eje 04</div>
+      <h3>Orientación profesional</h3>
+      <p>El mapa de la profesión: SOC, DFIR, pentesting, GRC. Itinerarios reales para llegar.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:56px;font-size:16px;color:var(--muted);max-width:80ch">Cada eje se desglosa en sesiones modulares de 50 a 90 minutos, encajables en una hora lectiva o en jornadas temáticas (Día de Internet Seguro, semanas culturales, jornadas STEM).</p>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">05</div>
+</section>
+
+<!-- ============= 6 · EJE 1 CONCIENCIACIÓN ============= -->
+<section class="slide alt">
+  <span class="eyebrow">Eje 01 · Concienciación</span>
+  <h2>Reconocer lo que ya están viviendo, sin alarmismo.</h2>
+
+  <div class="eje-detail">
+    <div class="what">
+      <h4>Contenidos</h4>
+      <ul>
+        <li><b>Phishing y fraudes online</b><span>Cómo se construye un engaño y cómo cambian las pistas año a año.</span></li>
+        <li><b>Suplantación de identidad y sextorsión</b><span>Casos reales anonimizados. Qué hacer en las primeras 24 horas.</span></li>
+        <li><b>Huella digital y reputación</b><span>Qué queda de ti en internet después de un año. Búsqueda en vivo, voluntaria.</span></li>
+        <li><b>Bulos, deepfakes y manipulación informativa</b><span>Pensamiento crítico aplicado: cómo verificar una imagen, un audio o una noticia.</span></li>
+      </ul>
+    </div>
+    <div class="meta-box">
+      <h4>Ficha del eje</h4>
+      <div class="row"><span>Nivel</span><b>1.º ESO – FP</b></div>
+      <div class="row"><span>Duración por sesión</span><b>50–90 min</b></div>
+      <div class="row"><span>Sesiones recomendadas</span><b>2–4</b></div>
+      <div class="row"><span>Modalidad</span><b>Presencial</b></div>
+      <div class="row"><span>Grupo máximo</span><b>30 alumnos</b></div>
+      <div class="row"><span>Material adicional</span><b>Guía para docentes</b></div>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">06</div>
+</section>
+
+<!-- ============= 7 · EJE 2 PRÁCTICAS SEGURAS ============= -->
+<section class="slide">
+  <span class="eyebrow">Eje 02 · Prácticas digitales seguras</span>
+  <h2>Hábitos concretos. No se memorizan: se prueban en clase.</h2>
+
+  <div class="eje-detail">
+    <div class="what">
+      <h4>Contenidos</h4>
+      <ul>
+        <li><b>Contraseñas robustas y gestores</b><span>Cómo crear y almacenar credenciales sin reutilizar. Demostración con un gestor gratuito.</span></li>
+        <li><b>Doble factor de autenticación</b><span>Qué es y por qué bloquea el 99 % de los intentos. Activación guiada en sus propias cuentas.</span></li>
+        <li><b>Privacidad en redes y wifis públicas</b><span>Repaso por configuraciones de Instagram, TikTok, WhatsApp y X. Qué deja ver el modo por defecto y por qué un wifi gratis no es gratis.</span></li>
+        <li><b>Reconocer un correo, web o mensaje fraudulento</b><span>Pequeño taller práctico: 10 capturas, ¿cuál es la trampa en cada una?</span></li>
+      </ul>
+    </div>
+    <div class="meta-box">
+      <h4>Ficha del eje</h4>
+      <div class="row"><span>Nivel</span><b>2.º ESO – FP</b></div>
+      <div class="row"><span>Duración por sesión</span><b>50–90 min</b></div>
+      <div class="row"><span>Sesiones recomendadas</span><b>2–3</b></div>
+      <div class="row"><span>Modalidad</span><b>Presencial · con dispositivos</b></div>
+      <div class="row"><span>Grupo máximo</span><b>30 alumnos</b></div>
+      <div class="row"><span>Material adicional</span><b>Guía visual descargable</b></div>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">07</div>
+</section>
+
+<!-- ============= 8 · EJE 3 HACKING ÉTICO ============= -->
+<section class="slide alt">
+  <span class="eyebrow">Eje 03 · Introducción al hacking ético</span>
+  <h2>Pensar como un atacante para entender la defensa.</h2>
+
+  <div class="eje-detail">
+    <div class="what">
+      <h4>Contenidos</h4>
+      <ul>
+        <li><b>Mentalidad del atacante, ética del defensor</b><span>La frontera entre curiosidad y delito. Marco legal en España (Código Penal, RGPD): la línea está más clara de lo que parece.</span></li>
+        <li><b>OSINT básico, en vivo y voluntario</b><span>Cuánta información hay sobre cualquiera con una búsqueda bien hecha. Demostración con un perfil ficticio.</span></li>
+        <li><b>Mini CTF (Capture The Flag) por equipos</b><span>Retos guiados de criptografía sencilla, esteganografía y análisis de evidencias. Para enganchar al aula.</span></li>
+        <li><b>Entornos legales para practicar</b><span>TryHackMe, Hack The Box, Atenea (CCN-CERT). Cómo empezar sin tocar nada que no se deba.</span></li>
+      </ul>
+    </div>
+    <div class="meta-box">
+      <h4>Ficha del eje</h4>
+      <div class="row"><span>Nivel</span><b>Bachillerato – FP</b></div>
+      <div class="row"><span>Duración por sesión</span><b>90 min</b></div>
+      <div class="row"><span>Sesiones recomendadas</span><b>2 + CTF de 2 h</b></div>
+      <div class="row"><span>Modalidad</span><b>Presencial · aula con red</b></div>
+      <div class="row"><span>Grupo máximo</span><b>25 alumnos</b></div>
+      <div class="row"><span>Material adicional</span><b>Repo público con retos</b></div>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">08</div>
+</section>
+
+<!-- ============= 9 · EJE 4 ORIENTACIÓN PROFESIONAL ============= -->
+<section class="slide">
+  <span class="eyebrow">Eje 04 · Orientación profesional</span>
+  <h2>El mapa real de la profesión, sin folletos.</h2>
+
+  <div class="eje-detail">
+    <div class="what">
+      <h4>Contenidos</h4>
+      <ul>
+        <li><b>El mapa de las profesiones en ciberseguridad</b><span>SOC, DFIR, pentesting, GRC, auditoría, forense, threat intelligence. Qué hace cada uno en su día a día.</span></li>
+        <li><b>Demanda y salarios reales en España</b><span>Lo que pagan en Málaga, en Madrid y en remoto internacional. Sin idealizar.</span></li>
+        <li><b>Itinerarios formativos</b><span>FP DAW/ASIR/Ciberseguridad, grados, máster propios, certificaciones (eJPT, OSCP, CEH). Qué peso tiene cada cosa al contratar.</span></li>
+        <li><b>Cómo entrar sin universidad</b><span>Mi propio caso: certificaciones, microcréditos, GitHub, comunidad. Funciona y se demuestra. Espacio final dedicado a Q&amp;A abiertas.</span></li>
+      </ul>
+    </div>
+    <div class="meta-box">
+      <h4>Ficha del eje</h4>
+      <div class="row"><span>Nivel</span><b>Bachillerato – FP</b></div>
+      <div class="row"><span>Duración por sesión</span><b>60–90 min</b></div>
+      <div class="row"><span>Sesiones recomendadas</span><b>1 charla + Q&amp;A</b></div>
+      <div class="row"><span>Modalidad</span><b>Presencial u online</b></div>
+      <div class="row"><span>Grupo máximo</span><b>Sin tope práctico</b></div>
+      <div class="row"><span>Material adicional</span><b>Hoja de ruta entregable</b></div>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">09</div>
+</section>
+
+<!-- ============= 10 · CÓMO SE IMPARTE ============= -->
+<section class="slide alt">
+  <span class="eyebrow">Cómo se imparte</span>
+  <h2>Formato encajable en la hora lectiva — o en una jornada completa.</h2>
+
+  <div class="format-grid">
+    <div class="fmt">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <h3>Sesiones modulares</h3>
+      <p>De 50 a 90 minutos, encajables en una hora lectiva o ampliables a doble sesión sin perder hilo.</p>
+    </div>
+    <div class="fmt">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="M3 7l9-4 9 4M3 7h18"/><path d="M7 11h10M7 15h7"/></svg></div>
+      <h3>Material visual propio</h3>
+      <p>Presentaciones, dinámicas y casos reales anonimizados. Guía de apoyo para el docente.</p>
+    </div>
+    <div class="fmt">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M5 12l5-5M5 12l5 5"/><path d="M19 6v12" stroke-dasharray="2 2"/></svg></div>
+      <h3>Demos en vivo</h3>
+      <p>Phishing, OSINT y CTF en directo, en entorno controlado, con guion ensayado. Sin sorpresas en clase.</p>
+    </div>
+    <div class="fmt">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="11" r="2.5"/><path d="M3 19c.6-3 3.4-5 6-5s5.4 2 6 5M14.5 19c.5-2 2-3.5 4-3.5"/></svg></div>
+      <h3>Participación activa</h3>
+      <p>Encuestas en directo, dinámicas por equipos, retos guiados. El alumnado entra al taller, no lo escucha.</p>
+    </div>
+    <div class="fmt">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+      <h3>Castellano</h3>
+      <p>Material y sesiones íntegramente en castellano, adaptados al nivel y la edad del grupo.</p>
+    </div>
+    <div class="fmt">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M5 9l7-7 7 7M5 15l7 7 7-7"/></svg></div>
+      <h3>Para docentes y AMPA</h3>
+      <p>Versiones específicas de las sesiones para claustro y familias, en horarios fuera de aula.</p>
+    </div>
+  </div>
+
+  <div class="audiences">
+    <div class="aud"><b>1.º–2.º ESO</b>concienciación · prácticas básicas</div>
+    <div class="aud"><b>3.º–4.º ESO</b>identidad digital · presión social</div>
+    <div class="aud"><b>Bachillerato</b>hacking ético · orientación</div>
+    <div class="aud"><b>FP</b>técnico aplicado · empleabilidad</div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">10</div>
+</section>
+
+<!-- ============= 11 · FORMACIÓN Y AVAL ============= -->
+<section class="slide">
+  <span class="eyebrow">Formación y aval profesional</span>
+  <h2>No es solo entusiasmo. Es trayectoria pericial documentada.</h2>
+
+  <div class="form-list">
+    <div class="form-block">
+      <h4>Posgrados · Títulos Propios UNIR</h4>
+      <div class="row"><b>Programa Avanzado en Peritaje Informático e Informática Forense</b><span>UNIR · 450 h · 2025 · Sobresaliente 9,20</span></div>
+      <div class="row"><b>Curso en Director de Seguridad</b><span>UNIR · 450 h · 2024–2025 · Sobresaliente 9,50</span></div>
+      <div class="row"><b>Máster en Detective Privado, Ciberdelitos y Análisis Forense</b><span>UNIR · primer año cursado · 2025</span></div>
+    </div>
+
+    <div class="form-block">
+      <h4>Estudios oficiales</h4>
+      <div class="row"><b>Técnico Superior en Mantenimiento Electrónico</b><span>IES Politécnico Jesús Marín, Málaga · 2021–2023</span></div>
+      <div class="row"><b>Estudios de Grado en Filosofía</b><span>Universidad de Málaga · base en lógica, ética y filosofía de la ciencia</span></div>
+      <div class="row"><b>Bachiller en Humanidades y Ciencias Sociales</b><span>Junta de Andalucía · 2012</span></div>
+    </div>
+
+    <div class="form-block">
+      <h4>Especialización en ciberseguridad</h4>
+      <div class="row"><b>Análisis Forense Informático · Bastionado · Producción Segura</b><span>Mainjobs / CNAI · 2024</span></div>
+      <div class="row"><b>Incidentes · Detección · Normativa de Ciberseguridad</b><span>Mainjobs / CNAI · 2024</span></div>
+      <div class="row"><b>Ciberseguridad Avanzada en Entornos OT</b><span>Mainjobs · Microcréditos · 120 h · 2024</span></div>
+    </div>
+
+    <div class="form-block">
+      <h4>Voluntariado y divulgación</h4>
+      <div class="row"><b>Fundación Cibervoluntarios</b><span>Talleres en centros educativos · alfabetización digital</span></div>
+      <div class="row"><b>Repositorio público en GitHub</b><span>github.com/control-digital-pymes</span></div>
+      <div class="row"><b>LinkedIn profesional activo</b><span>Publicación periódica sobre ciberseguridad y forense</span></div>
+    </div>
+  </div>
+
+  <div class="page-foot">Control Digital Pymes</div>
+  <div class="page-num">11</div>
+</section>
+
+<!-- ============= 12 · CONTACTO / CIERRE ============= -->
+<section class="slide contact">
+  <span class="eyebrow">Hablemos</span>
+  <h2>El móvil ya entró al aula. Lo que falta es entender qué hace ahí.</h2>
+  <div class="contact-rule"></div>
+  <div class="sign">Dragos C. I. Andrei<small>Control Digital Pymes · Ciberseguridad para empresas y centros educativos</small></div>
+
+  <div class="contact-links">
+    <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>forensiq.sentinel@outlook.com</a>
+    <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92V21a1 1 0 0 1-1.1 1 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 3.2 4a1 1 0 0 1 1-1.1H8a1 1 0 0 1 1 .8 12 12 0 0 0 .7 2.8 1 1 0 0 1-.2 1L8 9a16 16 0 0 0 7 7l1.5-1.5a1 1 0 0 1 1-.2 12 12 0 0 0 2.8.7 1 1 0 0 1 .8 1Z"/></svg>+34 643 041 943</a>
+    <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>controldigitalpymes.es</a>
+    <a><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5ZM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05 4 0 4.75 2.6 4.75 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.06 1.4-2.06 2.9V21H10z"/></svg>linkedin.com/in/dragos-cia5</a>
+  </div>
+
+  <div class="page-num">12</div>
+</section>
+
+</body>
+</html>
