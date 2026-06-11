@@ -87,7 +87,7 @@ Formación pericial relevante:
 
 ## Contacto
 
-**forensiq.sentinel@outlook.com** · +34 643 041 943 · [controldigitalpymes.es](https://controldigitalpymes.es) · [linkedin.com/in/dragos-cia5](https://linkedin.com/in/dragos-cia5)
+**contacto@controldigitalpymes.es** · +34 745 043 660. · [controldigitalpymes.es](https://controldigitalpymes.es) · [linkedin.com/in/dragos-cia5](https://linkedin.com/in/dragos-cia5)
 
 ---
 
