@@ -78,12 +78,6 @@ Formación pericial relevante:
 
 ---
 
-## Contenido del repositorio
-
-- `institutos_ciberseguridad.pdf` — dossier completo (12 páginas, formato slide 16:9). El PDF se adjuntará aparte.
-- `dossier.html` — fuente del dossier, editable. Para regenerar el PDF basta con renderizar el HTML a 1440×810 con cualquier motor de impresión (Chromium headless, wkhtmltopdf, etc.).
-
----
 
 ## Contacto
 
